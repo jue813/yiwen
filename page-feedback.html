@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f0f2ef">
+<title>反馈建议 · 译问｜西安翻译学院</title>
+<meta name="description" content="提建议、纠错误、说想法，帮译问做得更好。每一条反馈都会被认真阅读。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23b53232'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='19' fill='%23f7f4ec' font-family='serif'%3E译%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .fb-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 30px; align-items: start; }
+  .fb-form { border: 1px solid var(--line); background: var(--card); padding: 30px; }
+  .fb-form h3 { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .fb-form .fb-sub { font-size: 13px; color: var(--ink-2); margin-bottom: 24px; }
+  .fb-field { margin-bottom: 22px; }
+  .fb-field label { display: block; font-family: var(--serif); font-size: 13px; font-weight: 700; letter-spacing: .06em; margin-bottom: 10px; }
+  .fb-field .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .fb-field textarea, .fb-field input[type="text"] {
+    width: 100%; border: 1px solid var(--line); border-radius: 2px; padding: 12px 14px;
+    font: 14px/1.9 var(--hei); color: var(--ink); background: #fff; outline: none; resize: vertical;
+  }
+  .fb-field textarea { min-height: 120px; }
+  .fb-field textarea:focus, .fb-field input[type="text"]:focus { border-color: var(--seal); }
+  .fb-thanks {
+    display: none; margin-top: 20px; border: 1px solid var(--line); border-left: 2px solid var(--seal);
+    background: var(--card); padding: 20px 22px; font-family: var(--serif); font-size: 14px; line-height: 1.9;
+  }
+  .fb-thanks.is-on { display: block; }
+  .fb-side { border-left: 1px solid var(--line); padding-left: 24px; }
+  .fb-side h4 { font-family: var(--serif); font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+  .fb-side p { font-size: 13px; color: var(--ink-2); line-height: 2; }
+  .fb-side .note { margin-top: 16px; font-size: 12px; color: var(--ink-3); line-height: 1.9; }
+  @media (max-width: 1024px) {
+    .fb-grid { grid-template-columns: 1fr; }
+    .fb-side { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 22px; }
+  }
+</style>
+</head>
+<body data-page="feedback">
+
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="index.html"><span class="nav__mark">译</span><span class="nav__name">译问</span></a>
+  <button class="nav__toggle" id="navToggle" aria-label="打开菜单"><span></span><span></span><span></span></button>
+  <div class="nav__links">
+    <a href="index.html">首页</a>
+    <a href="page-notice.html">通知</a>
+    <a href="page-competition.html">竞赛</a>
+    <a href="page-activity.html">活动</a>
+    <a href="page-club.html">社团</a>
+    <a href="page-credit.html">学分</a>
+    <a href="page-ask.html">问答</a>
+    <a href="page-feedback.html" class="is-active">反馈</a>
+    <a href="index.html#about">关于</a>
+  </div>
+  <div class="nav__right">
+    <div class="nav__search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="searchInput" type="search" placeholder="搜通知 / 竞赛 / 社团" autocomplete="off">
+    </div>
+  </div>
+</nav>
+<div class="search-pop" id="searchPop"></div>
+
+<header class="sub-hero">
+  <div class="sub-hero__bg"><img src="assets/img/tower-green.jpg" alt="绿意掩映的西译钟楼"></div>
+  <div class="wrap sub-hero__in">
+    <nav class="crumb"><a href="index.html">首页</a><span>/</span><span>反馈</span></nav>
+    <h1>反馈建议</h1>
+    <p>发现内容有误、想要某个功能、觉得哪里不好用——都告诉我们。译问是学生做的，也是在学生的意见里长大的。</p>
+    <div class="sub-hero__meta">
+      <div><small>类型</small><b>功能建议 / 内容纠错</b></div>
+      <div><small>处理</small><b>每条都会读</b></div>
+      <div><small>隐私</small><b>不强制留联系方式</b></div>
+    </div>
+  </div>
+</header>
+
+<main class="sub-body">
+  <div class="wrap">
+    <div class="fb-grid">
+      <div class="fb-form">
+        <h3>写下来，告诉我们</h3>
+        <p class="fb-sub">反馈只存在本机浏览器里（演示版），不会上传到任何地方。</p>
+
+        <div class="fb-field">
+          <label>反馈类型</label>
+          <div class="chips" id="fbChips">
+            <button class="chip is-on" data-v="功能建议">功能建议</button>
+            <button class="chip" data-v="内容纠错">内容纠错</button>
+            <button class="chip" data-v="界面体验">界面体验</button>
+            <button class="chip" data-v="其他">其他</button>
+          </div>
+        </div>
+
+        <div class="fb-field">
+          <label>具体内容</label>
+          <textarea id="fbContent" placeholder="说说你的建议，或者发现的问题…"></textarea>
+        </div>
+
+        <div class="fb-field">
+          <label>联系方式（选填）</label>
+          <input id="fbContact" type="text" placeholder="手机号 / 微信 / 邮箱，方便我们回复你">
+        </div>
+
+        <button class="btn btn--seal" id="fbSubmit" style="width:100%;justify-content:center">提交反馈</button>
+
+        <div class="fb-thanks" id="fbThanks">
+          <div style="font-family:var(--serif);font-size:15px;font-weight:700;color:var(--seal)">感谢你的反馈</div>
+          我们会认真阅读并持续改进。想再提一条，直接继续写就好。
+        </div>
+      </div>
+
+      <aside class="fb-side">
+        <div class="eyebrow" style="margin-bottom:14px">为什么要有反馈</div>
+        <h4>平台是给你们用的</h4>
+        <p>哪些通知经常被错过、哪些说法还是看不懂、还缺什么板块——这些只有天天用的同学最清楚。你的建议，就是下一版译问的待办清单。</p>
+        <div class="note">· 内容纠错：指出事实、日期、文号等错误<br>· 功能建议：想要的新功能或新板块<br>· 界面体验：哪里难用、哪里看不清</div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__bottom" style="margin-top:0;border-top:0">
+      <span>© 2026 译问 · 西安翻译学院</span>
+      <span><a href="index.html">返回首页</a> · 信息以官方发布为准</span>
+    </div>
+  </div>
+</footer>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+  let type = '功能建议';
+  const chips = document.getElementById('fbChips');
+  chips.addEventListener('click', (e) => {
+    const b = e.target.closest('.chip');
+    if (!b) return;
+    chips.querySelectorAll('.chip').forEach(c => c.classList.remove('is-on'));
+    b.classList.add('is-on');
+    type = b.dataset.v;
+  });
+  document.getElementById('fbSubmit').addEventListener('click', () => {
+    const content = document.getElementById('fbContent').value.trim();
+    if (!content) { document.getElementById('fbContent').focus(); return; }
+    try {
+      const list = JSON.parse(localStorage.getItem('yiwen_feedback') || '[]');
+      list.push({ type, content, contact: document.getElementById('fbContact').value.trim(), time: new Date().toLocaleString() });
+      localStorage.setItem('yiwen_feedback', JSON.stringify(list));
+    } catch (e) {}
+    document.getElementById('fbThanks').classList.add('is-on');
+    document.getElementById('fbContent').value = '';
+    document.getElementById('fbContact').value = '';
+  });
+})();
+</script>
+</body>
+</html>

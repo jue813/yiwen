@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f0f2ef">
+<title>译问 · 把通知译成行动｜西安翻译学院校园信息精读</title>
+<meta name="description" content="西安翻译学院校园信息精读平台：把官方通知拆成谁、做什么、什么时候、注意什么，竞赛倒计时、社团实拍、学分进度一站聚合。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23b53232'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-size='19' fill='%23f7f4ec' font-family='serif'%3E译%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ========== 导航 ========== -->
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="index.html">
+    <span class="nav__mark">译</span>
+    <span class="nav__name">译问</span>
+  </a>
+  <button class="nav__toggle" id="navToggle" aria-label="打开菜单"><span></span><span></span><span></span></button>
+  <div class="nav__links">
+    <a href="index.html" class="is-active">首页</a>
+    <a href="page-notice.html">通知</a>
+    <a href="page-competition.html">竞赛</a>
+    <a href="page-activity.html">活动</a>
+    <a href="page-club.html">社团</a>
+    <a href="page-credit.html">学分</a>
+    <a href="page-ask.html">问答</a>
+    <a href="page-feedback.html">反馈</a>
+    <a href="#about">关于</a>
+  </div>
+  <div class="nav__right">
+    <div class="nav__search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="searchInput" type="search" placeholder="搜通知 / 竞赛 / 社团" autocomplete="off">
+    </div>
+  </div>
+</nav>
+<div class="search-pop" id="searchPop"></div>
+
+<!-- ========== 首屏 ========== -->
+<header class="hero">
+  <div class="hero__layers" id="heroLayers">
+    <img class="hero__img" src="assets/img/hero-mist.jpg" alt="晨雾里的西译大本钟与拱廊教学楼，远处是终南山">
+  </div>
+  <div class="hero__veil"></div>
+  <div class="hero__fade"></div>
+  <div class="hero__dust" id="heroDust"></div>
+
+  <div class="hero__inner">
+    <div class="hero__meta">
+      <span><b>西安翻译学院</b></span>
+      <i class="sep"></i>
+      <span>终南山下 · 信息精读</span>
+      <i class="sep"></i>
+      <span id="heroNow">此刻 —</span>
+    </div>
+
+    <h1>把通知，<br><em>译成行动</em></h1>
+
+    <p class="hero__sub">红头文件、群转发、公众号推送——同一件事，三种说法。<br>译问只做一件事：拆成你真正要执行的那几步。</p>
+
+    <div class="hero__actions">
+      <a class="btn btn--seal" href="page-notice.html">
+        开始精读通知
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn--ghost" href="page-club.html">看看校园社团</a>
+    </div>
+  </div>
+
+  <!-- 实时钟（真实时间） -->
+  <div class="hero__clock" aria-hidden="true">
+    <svg viewBox="0 0 100 100" id="liveClock">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="0.8"/>
+      <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="0.6"/>
+      <g id="tickMarks"></g>
+      <line id="handHour" x1="50" y1="50" x2="50" y2="26" stroke="rgba(255,255,255,.6)" stroke-width="1.6" stroke-linecap="round"/>
+      <line id="handMin" x1="50" y1="50" x2="50" y2="18" stroke="rgba(255,255,255,.9)" stroke-width="1" stroke-linecap="round"/>
+      <line id="handSec" x1="50" y1="50" x2="50" y2="15" stroke="#e0793f" stroke-width="0.9" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="1.8" fill="rgba(255,255,255,.85)"/>
+    </svg>
+    <span class="t">西译此刻</span>
+  </div>
+
+  <div class="hero__scroll">SCROLL</div>
+</header>
+
+<!-- 左侧进度轨 -->
+<aside class="rail" aria-hidden="true">
+  <div class="rail__line"></div>
+  <div class="rail__fill" id="railFill"></div>
+  <span class="rail__dot" data-dot="0"></span>
+  <span class="rail__dot" data-dot="1"></span>
+  <span class="rail__dot" data-dot="2"></span>
+  <span class="rail__dot" data-dot="3"></span>
+  <span class="rail__dot" data-dot="4"></span>
+</aside>
+
+<main>
+  <!-- ========== 01 钟面 ========== -->
+  <section class="section dial-sec" id="dialSec" data-r="0">
+    <div class="wrap">
+      <div class="section__head" data-reveal>
+        <div class="section__head-l">
+          <span class="sec-label">01 / 一座钟，六个方向</span>
+          <h2 class="sec-title">校园信息都挂在同一个钟面上</h2>
+          <p class="sec-desc">把指针拨到哪一格，下面就打开哪一类信息。六格覆盖了西译学生一学期要处理的所有事。</p>
+        </div>
+        <div class="eyebrow">CLICK THE DIAL</div>
+      </div>
+
+      <div class="dial-sec__grid">
+        <!-- 钟面 -->
+        <div class="dial" id="dial" data-reveal>
+          <div class="dial__ring">
+            <svg viewBox="0 0 400 400">
+              <circle cx="200" cy="200" r="196" fill="none" stroke="rgba(29,36,34,.16)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="168" fill="none" stroke="rgba(29,36,34,.08)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="128" fill="none" stroke="rgba(29,36,34,.05)" stroke-width="1"/>
+              <g id="dialTicks"></g>
+              <g id="dialSectors"></g>
+            </svg>
+          </div>
+          <!-- 标签由 JS 生成 -->
+          <div class="dial__hub">
+            <small>此刻</small>
+            <b id="hubNow">--:--</b>
+            <span class="now" id="hubLabel">通知</span>
+          </div>
+          <div class="dial__hand" id="dialHand"></div>
+        </div>
+
+        <!-- 面板 -->
+        <div class="panel" id="panel" data-reveal data-delay="1"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 02 原文 → 行动 ========== -->
+  <section class="section reader-sec" data-r="1">
+    <div class="wrap">
+      <div class="section__head" data-reveal>
+        <div class="section__head-l">
+          <span class="sec-label">02 / 原文对照</span>
+          <h2 class="sec-title">左边是文件，右边是你要做的事</h2>
+          <p class="sec-desc">不是摘要，是翻译。逐条把公文语言换成执行语言，红笔标出真正会卡住你的那几句。</p>
+        </div>
+        <div class="eyebrow">ORIGINAL / PLAIN</div>
+      </div>
+
+      <div class="reader" data-reveal>
+        <div>
+          <div class="reader__col-h">
+            <h3>官方原文</h3>
+            <span>教务处 · 西译教发〔2022〕17号</span>
+          </div>
+          <div class="doc-original" id="docOriginal"></div>
+        </div>
+
+        <div>
+          <div class="reader__col-h">
+            <h3>译问批注</h3>
+            <span id="briefTime">刚刚整理</span>
+          </div>
+          <div class="doc-human" id="docHuman">
+            <div class="doc-human__head">
+              <span class="who">要点版</span>
+              <span class="tm">读完约 40 秒 · 4 条要点</span>
+            </div>
+            <ul class="brief" id="briefList"></ul>
+            <div class="hand-note" id="handNote"></div>
+          </div>
+
+          <div class="facts" id="factsRow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 03 四时 ========== -->
+  <section class="section light-sec" data-r="2">
+    <div class="wrap">
+      <div class="section__head" data-reveal>
+        <div class="section__head-l">
+          <span class="sec-label">03 / 西译四时</span>
+          <h2 class="sec-title">同一个校园，四个时刻</h2>
+          <p class="sec-desc">照片都拍自校园里真实的地点：图书馆草坪、正午钟塔、黄昏拱廊、夜里操场。切一个时刻，页面跟着换一层光。</p>
+        </div>
+        <div class="eyebrow">06:40 — 21:30</div>
+      </div>
+
+      <div class="light__stage" data-reveal>
+        <div class="light__view" id="lightView">
+          <!-- 图片由 JS 生成 -->
+          <div class="light__cap">
+            <b id="lightCap">图书馆前的草坪</b>
+            <span id="lightDesc">一天里最安静的时候</span>
+          </div>
+        </div>
+        <div class="light__side">
+          <div class="eyebrow" style="margin-bottom:18px">一天的信息节奏</div>
+          <ul class="light__tabs" id="lightTabs"></ul>
+          <p class="light__note">很多通知之所以被错过，不是没发，而是发在了你不在线的那一个小时。四时不是装饰，是提醒你什么时候该看一眼。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 04 社团 ========== -->
+  <section class="section club-sec" data-r="3">
+    <div class="wrap">
+      <div class="section__head" data-reveal>
+        <div class="section__head-l">
+          <span class="sec-label">04 / 社团实拍</span>
+          <h2 class="sec-title">先看他们真的在做什么</h2>
+          <p class="sec-desc">全部是校内活动的真实照片。比起招新文案，一张合影更能说明这个社团的日常。</p>
+        </div>
+        <a class="panel__more" href="page-club.html">全部社团</a>
+      </div>
+      <div class="club-wall" id="clubWall" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ========== 校园地图 ========== -->
+  <section class="section map-sec">
+    <div class="wrap">
+      <div class="section__head" data-reveal>
+        <div class="section__head-l">
+          <span class="sec-label">MAP / 校园地图</span>
+          <h2 class="sec-title">一张图，看懂西译</h2>
+          <p class="sec-desc">教学楼、图书馆、操场、食堂、社团活动室——都在这张图里。点击查看高清原图。</p>
+        </div>
+        <div class="eyebrow">CAMPUS MAP</div>
+      </div>
+      <a class="map-box" href="assets/img/campus-map.jpg" target="_blank" rel="noopener" data-reveal>
+        <img src="assets/img/campus-map.jpg" alt="西安翻译学院校园地图" loading="lazy">
+        <span class="map-box__hint">点击查看高清原图 ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== 05 学分 / 问答 ========== -->
+  <section class="section strip-sec" id="about" data-r="4">
+    <div class="wrap">
+      <div class="section__head" data-reveal>
+        <div class="section__head-l">
+          <span class="sec-label">05 / 学业与提问</span>
+          <h2 class="sec-title">学分、疑问，还有这个项目</h2>
+        </div>
+        <div class="eyebrow">CREDIT / ASK</div>
+      </div>
+
+      <div class="strip" data-reveal>
+        <div class="strip__cell strip__cell--credit">
+          <svg class="ring" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(29,36,34,.1)" stroke-width="6"/>
+            <circle id="creditRing" cx="50" cy="50" r="42" fill="none" stroke="#b53232" stroke-width="6"
+              stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/>
+            <text x="50" y="46" text-anchor="middle" font-size="19" fill="#1d2422" font-family="Songti SC, serif">3.4</text>
+            <text x="50" y="62" text-anchor="middle" font-size="8" fill="#7d8783">/ 8 学分</text>
+          </svg>
+          <small>CREDIT / 学分</small>
+          <h4>素质拓展还差 4.6 分</h4>
+          <p>四个模块里「实践教学活动周」还没动，经典阅读还差 1 分。缺口在哪、怎么补，都在学分页。</p>
+          <a class="go" href="page-credit.html">看我的学分 →</a>
+        </div>
+
+        <div class="strip__cell">
+          <small>ASK / 问答</small>
+          <h4>问得明白，答得清楚</h4>
+          <p>“补考什么时候”“奖学金怎么评”“转专业还来得及吗”——不用翻十份文件，直接问。</p>
+          <a class="go" href="page-ask.html">去提问 →</a>
+        </div>
+
+        <div class="strip__cell">
+          <small>ABOUT / 关于译问</small>
+          <h4>一个校园信息精读作品</h4>
+          <p>由西安翻译学院电子信息科学与技术专业 5 人团队共同完成。基于常规前端技术栈，只做一件事：让信息可读。</p>
+          <a class="go" href="page-ask.html#about">项目说明 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ========== 页脚 ========== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand"><span class="footer__mark">译</span><b>译问</b></div>
+        <p>西安翻译学院校园信息精读平台。把官方文件译成学生能执行的语言，不替代官方，只帮你读懂。</p>
+      </div>
+      <div>
+        <h5>内容</h5>
+        <ul>
+          <li><a href="page-notice.html">通知精读</a></li>
+          <li><a href="page-competition.html">竞赛聚合</a></li>
+          <li><a href="page-activity.html">校园活动</a></li>
+          <li><a href="page-club.html">社团全景</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>学业</h5>
+        <ul>
+          <li><a href="page-credit.html">我的学分</a></li>
+          <li><a href="page-ask.html">问译问</a></li>
+          <li><a href="#dialSec">六格导航</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 译问 · 西安翻译学院</span>
+      <span>底图均为校园实拍 · 信息以官方发布为准</span>
+    </div>
+  </div>
+  <svg class="footer__tower" viewBox="0 0 60 120" fill="none" stroke="#fff" stroke-width="1">
+    <path d="M30 4l4 10h-8l4-10zM24 14h12v8H24zM22 22h16v10H22zM25 32h10v10H25z"/>
+    <path d="M20 42h20l4 74H16z"/>
+    <circle cx="30" cy="22" r="4"/><circle cx="30" cy="22" r="2.4"/>
+    <path d="M30 19v3M30 22l2 1.6"/>
+  </svg>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>

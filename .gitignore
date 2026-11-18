@@ -1,0 +1,6 @@
+# 预览截图(毕设参考图,不随站点部署)
+preview/
+# 系统文件
+.DS_Store
+Thumbs.db
+*.log
